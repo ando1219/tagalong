@@ -4,788 +4,858 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;900&family=ZCOOL+KuaiLe&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;900&family=ZCOOL+KuaiLe&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  /* ============ Tokens ============ */
   :root{
-    --ink:#16231d;
-    --ink-soft:#3c4a41;
-    --mist:#f1f4ee;
-    --mist-dim:#e6e9e0;
-    --coral:#ff5b3c;
-    --coral-ink:#c23d22;
-    --trail:#1e6f63;
-    --trail-soft:#e2efe9;
-    --sand:#d9cdb2;
-    --sand-line: rgba(22,35,29,0.16);
-    --paper-card:#fbfaf6;
-    --shadow: 0 1px 2px rgba(22,35,29,0.06), 0 8px 24px -12px rgba(22,35,29,0.18);
-    --radius-card: 20px;
-    --radius-chip: 999px;
+    --ink:#16231d; --ink-soft:#57685e;
+    --mist:#f1f4ee; --mist-dim:#e6e9e0;
+    --coral:#ff5b3c; --coral-ink:#c23d22; --coral-soft:#ffe6df;
+    --trail:#1e6f63; --trail-soft:#e2efe9;
+    --sand:#d9cdb2; --sand-line:rgba(22,35,29,0.14);
+    --paper:#fbfaf6;
+    --gold:#e0912e; --gold-soft:#fbead0;
+    --shadow:0 1px 2px rgba(22,35,29,.06), 0 8px 24px -12px rgba(22,35,29,.18);
+    --shadow-lg:0 12px 40px -14px rgba(22,35,29,.35);
+    --r-card:18px; --r-chip:999px;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --ink:#eef2ea;
-      --ink-soft:#b7c2b7;
-      --mist:#121a15;
-      --mist-dim:#1a231c;
-      --coral:#ff7a5c;
-      --coral-ink:#ffb199;
-      --trail:#5fc2ae;
-      --trail-soft:#16302a;
-      --sand:#4a4433;
-      --sand-line: rgba(238,242,234,0.16);
-      --paper-card:#182019;
-      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px -14px rgba(0,0,0,0.6);
+      --ink:#eef2ea; --ink-soft:#9fb0a4;
+      --mist:#101712; --mist-dim:#182019;
+      --coral:#ff8264; --coral-ink:#ffb199; --coral-soft:#2c1811;
+      --trail:#5fc2ae; --trail-soft:#123028;
+      --sand:#4a4433; --sand-line:rgba(238,242,234,0.14);
+      --paper:#171f19;
+      --gold:#f0b35c; --gold-soft:#2e2210;
+      --shadow:0 1px 2px rgba(0,0,0,.35), 0 12px 28px -14px rgba(0,0,0,.6);
+      --shadow-lg:0 18px 50px -16px rgba(0,0,0,.7);
     }
   }
   :root[data-theme="dark"]{
-    --ink:#eef2ea;
-    --ink-soft:#b7c2b7;
-    --mist:#121a15;
-    --mist-dim:#1a231c;
-    --coral:#ff7a5c;
-    --coral-ink:#ffb199;
-    --trail:#5fc2ae;
-    --trail-soft:#16302a;
-    --sand:#4a4433;
-    --sand-line: rgba(238,242,234,0.16);
-    --paper-card:#182019;
-    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px -14px rgba(0,0,0,0.6);
+    --ink:#eef2ea; --ink-soft:#9fb0a4;
+    --mist:#101712; --mist-dim:#182019;
+    --coral:#ff8264; --coral-ink:#ffb199; --coral-soft:#2c1811;
+    --trail:#5fc2ae; --trail-soft:#123028;
+    --sand:#4a4433; --sand-line:rgba(238,242,234,0.14);
+    --paper:#171f19;
+    --gold:#f0b35c; --gold-soft:#2e2210;
+    --shadow:0 1px 2px rgba(0,0,0,.35), 0 12px 28px -14px rgba(0,0,0,.6);
+    --shadow-lg:0 18px 50px -16px rgba(0,0,0,.7);
   }
 
   *{box-sizing:border-box;}
-  html,body{margin:0;}
+  html,body{height:100%; margin:0;}
   body{
-    background:var(--mist);
-    color:var(--ink);
-    font-family:'Noto Sans SC', "PingFang SC","Microsoft YaHei",system-ui,sans-serif;
-    padding-inline:20px;
-    padding-block:calc(28px + env(safe-area-inset-top,0px)) calc(40px + env(safe-area-inset-bottom,0px));
+    background:var(--mist); color:var(--ink);
+    font-family:'Noto Sans SC',"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+    line-height:1.55;
+    padding-block:env(safe-area-inset-top,0px) env(safe-area-inset-bottom,0px);
     -webkit-font-smoothing:antialiased;
-    line-height:1.6;
   }
-  img{max-width:100%;}
+  button,input,select,textarea{font:inherit; color:inherit;}
   [hidden]{display:none!important;}
-
-  .stamp{ font-family:'ZCOOL KuaiLe', 'Noto Sans SC', sans-serif; }
-  .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; }
-
-  h1,h2,h3{ text-wrap:balance; margin:0; }
+  img{max-width:100%;}
+  .stamp{font-family:'ZCOOL KuaiLe','Noto Sans SC',sans-serif;}
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace;}
+  h1,h2,h3,h4{margin:0; text-wrap:balance;}
   p{margin:0;}
+  .wrap{max-width:1120px; margin-inline:auto; padding-inline:20px;}
 
-  .wrap{ max-width:1080px; margin-inline:auto; }
-
-  /* ============ Nav ============ */
-  .nav{
-    display:flex; align-items:center; justify-content:space-between;
-    padding-block:10px 34px;
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:20;
+    background:color-mix(in srgb, var(--mist) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--sand-line);
+    padding-top:env(safe-area-inset-top,0px);
   }
-  .brand{ display:flex; align-items:center; gap:10px; }
+  .headbar{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding-block:12px;
+  }
+  .brand{display:flex; align-items:center; gap:10px;}
   .brand-mark{
-    width:34px;height:34px;border-radius:10px;
-    background:var(--coral); color:#fff5f1;
-    display:grid; place-items:center;
-    font-family:'ZCOOL KuaiLe',sans-serif; font-size:17px;
-    box-shadow: var(--shadow);
-    flex:none;
+    width:36px;height:36px;border-radius:11px; background:var(--coral); color:#fff5f1;
+    display:grid; place-items:center; font-family:'ZCOOL KuaiLe',sans-serif; font-size:18px;
+    box-shadow:var(--shadow); flex:none;
   }
-  .brand-name{ font-family:'ZCOOL KuaiLe',sans-serif; font-size:20px; letter-spacing:.02em; }
-  .brand-sub{ font-size:12px; color:var(--ink-soft); margin-top:1px; }
-  .nav-tag{
-    font-size:12px; color:var(--ink-soft);
-    border:1px solid var(--sand-line); border-radius:var(--radius-chip);
-    padding:6px 14px;
-    white-space:nowrap;
-  }
+  .brand-name{font-family:'ZCOOL KuaiLe',sans-serif; font-size:20px;}
+  .brand-sub{font-size:11px; color:var(--ink-soft); margin-top:-1px;}
 
-  /* ============ Hero ============ */
-  .hero{
-    display:grid; grid-template-columns:1.05fr 0.95fr; gap:48px;
-    align-items:center;
-    padding-block:8px 56px;
-  }
-  @media (max-width:820px){ .hero{ grid-template-columns:1fr; } }
-
-  .eyebrow{
-    display:inline-flex; align-items:center; gap:8px;
-    font-size:13px; color:var(--coral-ink); font-weight:600;
-    margin-bottom:16px;
-  }
-  .eyebrow::before{
-    content:""; width:7px;height:7px;border-radius:50%;
-    background:var(--coral); flex:none;
-  }
-  .hero h1{
-    font-size:clamp(30px,4.4vw,46px);
-    font-weight:900;
-    letter-spacing:-0.01em;
-  }
-  .hero h1 em{ color:var(--coral); font-style:normal; }
-  .hero-lede{
-    margin-top:18px; font-size:16.5px; color:var(--ink-soft); max-width:46ch;
-  }
-  .hero-stats{
-    display:flex; gap:10px; margin-top:28px; flex-wrap:wrap;
-  }
-  .stat-chip{
-    border:1px solid var(--sand-line); border-radius:14px;
-    padding:12px 16px; background:var(--paper-card);
-    min-width:118px;
-  }
-  .stat-chip b{
-    display:block; font-family:'JetBrains Mono',monospace; font-size:20px; color:var(--coral-ink);
-  }
-  .stat-chip span{ font-size:12px; color:var(--ink-soft); }
-
-  /* ---- Ticket hero visual ---- */
-  .ticket{
-    position:relative;
-    background:var(--paper-card);
-    border:1px solid var(--sand-line);
-    border-radius:22px;
-    box-shadow:var(--shadow);
-    overflow:hidden;
-    max-width:400px; margin-inline:auto;
-  }
-  .ticket-top{ padding:20px 22px 18px; }
-  .ticket-route{
-    display:flex; align-items:center; justify-content:space-between; gap:10px;
-    margin-bottom:14px;
-  }
-  .ticket-code{ font-size:11px; color:var(--ink-soft); letter-spacing:.04em; }
-  .ticket-status{
-    font-family:'ZCOOL KuaiLe',sans-serif;
-    font-size:13px; color:var(--trail);
-    border:2px solid var(--trail); border-radius:8px;
-    padding:3px 10px; transform:rotate(-4deg);
-  }
-  .ticket-title{ font-size:19px; font-weight:700; margin-bottom:4px; }
-  .ticket-desc{ font-size:13px; color:var(--ink-soft); }
-  .ticket-grid{
-    display:grid; grid-template-columns:1fr 1fr; gap:14px 10px;
-    margin-top:18px;
-  }
-  .ticket-field label{
-    display:block; font-size:10.5px; color:var(--ink-soft);
-    text-transform:uppercase; letter-spacing:.08em; margin-bottom:3px;
-  }
-  .ticket-field div{ font-family:'JetBrains Mono',monospace; font-size:14.5px; font-weight:600; }
-  .ticket-avatars{ display:flex; margin-top:18px; align-items:center; gap:10px; }
-  .av-row{ display:flex; }
-  .av{
-    width:26px;height:26px;border-radius:50%;
-    border:2px solid var(--paper-card);
-    margin-left:-8px;
-    display:grid; place-items:center;
-    font-size:10px; font-weight:700; color:#fff;
-  }
-  .av:first-child{ margin-left:0; }
-  .ticket-avatars small{ font-size:12px; color:var(--ink-soft); }
-
-  .ticket-perf{
-    position:relative;
-    height:0;
-    border-top:2px dashed var(--sand-line);
-    margin:0 0;
-  }
-  .ticket-perf::before,.ticket-perf::after{
-    content:""; position:absolute; top:-11px;
-    width:22px;height:22px; border-radius:50%;
-    background:var(--mist);
-  }
-  .ticket-perf::before{ left:-11px; }
-  .ticket-perf::after{ right:-11px; }
-
-  .ticket-bottom{
-    padding:16px 22px 22px;
-    display:flex; align-items:center; justify-content:space-between;
-  }
-  .ticket-price{ }
-  .ticket-price span{ display:block; font-size:11px; color:var(--ink-soft); }
-  .ticket-price b{ font-family:'JetBrains Mono',monospace; font-size:22px; color:var(--coral-ink); }
-  .ticket-barcode{
-    display:flex; gap:2px; align-items:flex-end; height:30px;
-  }
-  .ticket-barcode i{
-    display:block; width:2.5px; background:var(--ink); opacity:.55;
-  }
-
-  /* ============ Section shell ============ */
-  section{ padding-block:52px; position:relative; }
-  .section-head{
-    display:flex; align-items:baseline; gap:14px; margin-bottom:30px;
-    flex-wrap:wrap;
-  }
-  .section-num{
-    font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--coral-ink);
-    border:1px solid var(--sand-line); border-radius:8px; padding:3px 8px;
-  }
-  .section-head h2{ font-size:clamp(22px,3vw,28px); font-weight:800; }
-  .section-note{ font-size:14px; color:var(--ink-soft); margin-top:8px; max-width:60ch; }
-
-  .trail-divider{
-    display:flex; align-items:center; gap:10px;
-    color:var(--sand-line);
-    margin-block:6px 0;
-  }
-  .trail-divider .line{ flex:1; height:0; border-top:2px dashed var(--sand-line); }
-  .trail-divider .dot{ width:8px;height:8px;border-radius:50%; background:var(--trail); flex:none; }
-
-  /* ============ Pain points ============ */
-  .pain-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-  @media (max-width:820px){ .pain-grid{ grid-template-columns:1fr; } }
-  .pain-card{
-    background:var(--paper-card); border:1px solid var(--sand-line);
-    border-radius:var(--radius-card); padding:24px;
-  }
-  .pain-icon{
-    width:38px;height:38px; border-radius:11px;
-    background:var(--trail-soft); color:var(--trail);
-    display:grid; place-items:center; margin-bottom:16px;
-  }
-  .pain-layer{ font-size:11.5px; color:var(--coral-ink); font-weight:700; letter-spacing:.03em; margin-bottom:6px; }
-  .pain-card h3{ font-size:17px; font-weight:700; margin-bottom:8px; }
-  .pain-card p{ font-size:14px; color:var(--ink-soft); }
-
-  /* ============ Flow / route ============ */
-  .route{
-    position:relative;
-    display:grid; grid-template-columns:repeat(3,1fr); gap:0;
-    margin-top:10px;
-  }
-  @media (max-width:820px){ .route{ grid-template-columns:1fr; } }
-  .route::before{
-    content:"";
-    position:absolute; top:19px; left:6%; right:6%; height:0;
-    border-top:3px dotted var(--sand-line);
-  }
-  @media (max-width:820px){ .route::before{ display:none; } }
-  .route-step{ position:relative; padding:0 18px 0 0; }
-  .route-step .waypoint{
-    width:40px;height:40px; border-radius:50%;
-    background:var(--coral); color:#fff;
-    display:grid; place-items:center;
-    font-family:'JetBrains Mono',monospace; font-weight:700; font-size:15px;
-    position:relative; z-index:1;
-    box-shadow:var(--shadow);
-    margin-bottom:16px;
-  }
-  .route-step h3{ font-size:16.5px; font-weight:700; margin-bottom:6px; }
-  .route-step p{ font-size:13.5px; color:var(--ink-soft); max-width:32ch; }
-
-  /* ============ Feature modules ============ */
-  .module{
-    display:grid; grid-template-columns:0.86fr 1.14fr; gap:44px; align-items:center;
-    padding-block:40px;
-    border-top:1px solid var(--sand-line);
-  }
-  .module:first-of-type{ border-top:none; }
-  .module.reverse{ grid-template-columns:1.14fr 0.86fr; }
-  .module.reverse .module-phone{ order:2; }
-  @media (max-width:860px){
-    .module, .module.reverse{ grid-template-columns:1fr; }
-    .module.reverse .module-phone{ order:0; }
-  }
-
-  .module-tag{
-    display:inline-block; font-size:11.5px; color:var(--trail); font-weight:700;
-    background:var(--trail-soft); border-radius:var(--radius-chip);
-    padding:4px 12px; margin-bottom:14px;
-  }
-  .module-text h3{ font-size:22px; font-weight:800; margin-bottom:10px; }
-  .module-text > p{ font-size:14.5px; color:var(--ink-soft); margin-bottom:18px; max-width:44ch; }
-  .module-list{ list-style:none; margin:0; padding:0; display:grid; gap:11px; }
-  .module-list li{
-    display:flex; gap:10px; font-size:14px; align-items:flex-start;
-  }
-  .module-list li svg{ flex:none; margin-top:3px; color:var(--coral); }
-  .module-list b{ font-weight:700; }
-  .module-list span{ color:var(--ink-soft); }
-
-  /* phone frame */
-  .phone{
-    width:264px; margin-inline:auto;
-    background:var(--ink); border-radius:38px; padding:11px;
-    box-shadow:var(--shadow);
-  }
-  .phone-screen{
-    background:var(--paper-card); border-radius:28px; overflow:hidden;
-    min-height:472px; position:relative; display:flex; flex-direction:column;
-  }
-  .phone-notch{
-    position:absolute; top:0; left:50%; transform:translateX(-50%);
-    width:96px; height:22px; background:var(--ink); border-radius:0 0 14px 14px; z-index:2;
-  }
-  .phone-status{
-    display:flex; justify-content:space-between; padding:14px 18px 4px;
-    font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-soft);
-  }
-  .phone-bar{
-    padding:6px 16px 12px; font-size:14px; font-weight:700;
-    display:flex; align-items:center; justify-content:space-between;
-  }
-  .phone-body{ padding:0 14px 14px; flex:1; display:flex; flex-direction:column; gap:10px; overflow:hidden; }
-
-  /* feed card (拼场广场) */
-  .feed-item{
-    border:1px solid var(--sand-line); border-radius:14px; padding:11px 12px; background:var(--mist);
-  }
-  .feed-item .row1{ display:flex; justify-content:space-between; align-items:flex-start; gap:6px; }
-  .feed-item .ttl{ font-size:12.5px; font-weight:700; line-height:1.35; }
-  .feed-item .badge{
-    font-size:9.5px; background:var(--trail-soft); color:var(--trail); padding:2px 7px; border-radius:6px;
-    white-space:nowrap; font-weight:700;
-  }
-  .feed-item .meta{ font-size:10.5px; color:var(--ink-soft); margin-top:6px; font-family:'JetBrains Mono',monospace; }
-
-  /* form (发起拼场) */
-  .form-field{ border:1px solid var(--sand-line); border-radius:12px; padding:9px 11px; background:var(--mist); }
-  .form-field label{ display:block; font-size:9.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); margin-bottom:3px; }
-  .form-field div{ font-size:12.5px; font-weight:600; }
-  .form-cta{
-    margin-top:auto; background:var(--coral); color:#fff; text-align:center;
-    padding:11px; border-radius:12px; font-weight:700; font-size:13px;
-  }
-
-  /* group chat (成团协同) */
-  .pin-card{
-    background:linear-gradient(135deg,var(--trail),#12463d); color:#eafff8;
-    border-radius:14px; padding:12px; font-size:11px;
-  }
-  .pin-card .h{ font-weight:700; font-size:12.5px; margin-bottom:6px; display:flex; justify-content:space-between; }
-  .pin-card .r{ display:flex; justify-content:space-between; padding-block:2px; opacity:.92; }
-  .bubble{ max-width:78%; padding:8px 11px; border-radius:13px; font-size:11.5px; }
-  .bubble.them{ background:var(--mist); align-self:flex-start; border:1px solid var(--sand-line); }
-  .bubble.me{ background:var(--coral); color:#fff; align-self:flex-end; }
-
-  /* checkin */
-  .photo-grid{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-  .photo-tile{
-    aspect-ratio:1; border-radius:12px;
-    background:repeating-linear-gradient(135deg,var(--trail-soft),var(--trail-soft) 8px,var(--mist-dim) 8px,var(--mist-dim) 16px);
-    position:relative;
-  }
-  .photo-tile span{
-    position:absolute; bottom:6px; left:6px; font-size:9px; background:rgba(0,0,0,.55); color:#fff;
-    padding:2px 6px; border-radius:6px;
-  }
-
-  /* ============ Trust strip ============ */
-  .trust-strip{
-    display:grid; grid-template-columns:repeat(4,1fr); gap:14px;
-  }
-  @media (max-width:820px){ .trust-strip{ grid-template-columns:1fr 1fr; } }
-  .trust-item{
-    border:1px solid var(--sand-line); border-radius:16px; padding:18px;
-    background:var(--paper-card);
-  }
-  .trust-item svg{ color:var(--coral); margin-bottom:10px; }
-  .trust-item h4{ font-size:14px; font-weight:700; margin-bottom:5px; }
-  .trust-item p{ font-size:12.5px; color:var(--ink-soft); }
-
-  /* ============ Journey tabs ============ */
-  .tabs{ display:flex; gap:8px; margin-bottom:24px; }
+  .tabs{display:flex; gap:4px; background:var(--paper); border:1px solid var(--sand-line); padding:4px; border-radius:var(--r-chip); box-shadow:var(--shadow);}
   .tab-btn{
-    font: inherit; font-size:13.5px; font-weight:700; cursor:pointer;
-    border:1px solid var(--sand-line); background:var(--paper-card); color:var(--ink-soft);
-    border-radius:var(--radius-chip); padding:9px 18px;
+    border:none; background:transparent; cursor:pointer; border-radius:var(--r-chip);
+    padding:8px 16px; font-size:13.5px; font-weight:700; color:var(--ink-soft);
+    display:flex; align-items:center; gap:6px; white-space:nowrap;
   }
-  .tab-btn[aria-selected="true"]{ background:var(--coral); color:#fff; border-color:var(--coral); }
-  .tab-btn:focus-visible{ outline:2px solid var(--coral); outline-offset:2px; }
+  .tab-btn.active{background:var(--coral); color:#fff;}
+  .tab-btn .count{
+    font-family:'JetBrains Mono',monospace; font-size:10.5px; background:rgba(0,0,0,.12);
+    padding:1px 6px; border-radius:8px;
+  }
+  .tab-btn.active .count{background:rgba(255,255,255,.28);}
 
-  .journey{ display:grid; gap:0; }
-  .j-step{
-    display:grid; grid-template-columns:auto 1fr; gap:16px;
-    padding-block:16px;
+  .profile-chip{
+    display:flex; align-items:center; gap:8px; cursor:pointer; border:1px solid var(--sand-line);
+    background:var(--paper); border-radius:var(--r-chip); padding:5px 12px 5px 5px; box-shadow:var(--shadow);
   }
-  .j-step .rail{ display:flex; flex-direction:column; align-items:center; }
-  .j-step .node{
-    width:30px;height:30px; border-radius:50%; background:var(--paper-card);
-    border:2px solid var(--trail); color:var(--trail);
-    display:grid; place-items:center; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:700;
-    flex:none;
+  .avatar{
+    width:28px;height:28px;border-radius:50%; display:grid; place-items:center;
+    font-size:11px; font-weight:700; color:#fff; flex:none;
   }
-  .j-step .stem{ flex:1; width:0; border-left:2px dotted var(--sand-line); margin-block:4px; }
-  .j-step:last-child .stem{ display:none; }
-  .j-step h4{ font-size:15px; font-weight:700; margin-bottom:4px; }
-  .j-step p{ font-size:13.5px; color:var(--ink-soft); max-width:56ch; }
+  .profile-chip .lv{font-size:11px; color:var(--ink-soft);}
+  .profile-chip .lv b{color:var(--ink); font-weight:700;}
 
-  /* ============ Footer ============ */
-  footer{
-    margin-top:12px; padding-top:28px; border-top:1px solid var(--sand-line);
-    display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
-    font-size:12.5px; color:var(--ink-soft);
+  @media (max-width:760px){
+    .headbar{flex-wrap:wrap;}
+    .tabs{order:3; width:100%; justify-content:space-between;}
+    .tab-btn{flex:1; justify-content:center;}
   }
-  footer .stamp{ color:var(--ink); font-size:14px; }
 
-  @media (prefers-reduced-motion:no-preference){
-    .ticket{ animation:rise .6s ease-out; }
-    @keyframes rise{ from{ opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+  main{padding-block:26px 60px;}
+
+  /* ---------- section titles ---------- */
+  .panel-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:18px; flex-wrap:wrap;}
+  .panel-head h2{font-size:21px; font-weight:800;}
+  .panel-head p{font-size:13px; color:var(--ink-soft); margin-top:4px;}
+
+  /* ---------- filter bar ---------- */
+  .filter-bar{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:20px;}
+  .chip-row{display:flex; gap:8px; flex-wrap:wrap;}
+  .chip{
+    border:1px solid var(--sand-line); background:var(--paper); border-radius:var(--r-chip);
+    padding:7px 14px; font-size:12.5px; font-weight:600; cursor:pointer; color:var(--ink-soft);
+    display:flex; align-items:center; gap:6px;
   }
+  .chip.active{background:var(--trail); color:#eafff8; border-color:var(--trail);}
+  .search-box{
+    display:flex; align-items:center; gap:8px; border:1px solid var(--sand-line); background:var(--paper);
+    border-radius:var(--r-chip); padding:7px 14px; margin-left:auto; min-width:180px;
+  }
+  .search-box input{border:none; background:transparent; outline:none; font-size:13px; width:100%;}
+  select.sortsel{
+    border:1px solid var(--sand-line); background:var(--paper); border-radius:var(--r-chip);
+    padding:7px 12px; font-size:12.5px; font-weight:600;
+  }
+
+  /* ---------- feed grid ---------- */
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(268px,1fr)); gap:16px;}
+  .empty{
+    border:1px dashed var(--sand-line); border-radius:var(--r-card); padding:40px 20px; text-align:center;
+    color:var(--ink-soft); font-size:13.5px; grid-column:1/-1;
+  }
+
+  .card{
+    background:var(--paper); border:1px solid var(--sand-line); border-radius:var(--r-card);
+    box-shadow:var(--shadow); padding:18px; cursor:pointer; display:flex; flex-direction:column; gap:12px;
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .card:hover{transform:translateY(-2px); box-shadow:var(--shadow-lg);}
+  .card .top{display:flex; justify-content:space-between; align-items:flex-start; gap:8px;}
+  .cat-tag{font-size:10.5px; font-weight:700; color:var(--trail); background:var(--trail-soft); padding:3px 9px; border-radius:7px;}
+  .badge{font-size:10.5px; font-weight:700; padding:3px 9px; border-radius:7px; white-space:nowrap;}
+  .badge.open{background:var(--sand); color:var(--ink-soft);}
+  .badge.ready{background:var(--coral-soft); color:var(--coral-ink);}
+  .badge.full{background:var(--gold-soft); color:var(--gold);}
+  .badge.done{background:var(--trail-soft); color:var(--trail);}
+  .card h3{font-size:16px; font-weight:700; line-height:1.35;}
+  .card .meta-row{display:flex; flex-wrap:wrap; gap:7px 14px; font-size:11.5px; color:var(--ink-soft);}
+  .card .meta-row span{display:flex; align-items:center; gap:4px;}
+  .progress{height:6px; border-radius:4px; background:var(--mist-dim); overflow:hidden;}
+  .progress i{display:block; height:100%; background:var(--coral); border-radius:4px;}
+  .card .bottom{display:flex; justify-content:space-between; align-items:center;}
+  .price{font-family:'JetBrains Mono',monospace; font-weight:700; color:var(--coral-ink); font-size:14px;}
+  .avatars{display:flex;}
+  .av-sm{width:22px;height:22px;border-radius:50%; border:2px solid var(--paper); margin-left:-7px; display:grid; place-items:center; font-size:9px; font-weight:700; color:#fff;}
+  .av-sm:first-child{margin-left:0;}
+
+  /* ---------- buttons ---------- */
+  .btn{
+    border:none; cursor:pointer; border-radius:var(--r-chip); padding:10px 18px; font-weight:700; font-size:13.5px;
+    display:inline-flex; align-items:center; justify-content:center; gap:6px;
+  }
+  .btn.primary{background:var(--coral); color:#fff;}
+  .btn.primary:disabled{background:var(--sand); color:var(--ink-soft); cursor:not-allowed;}
+  .btn.ghost{background:transparent; border:1px solid var(--sand-line); color:var(--ink);}
+  .btn.trail{background:var(--trail); color:#eafff8;}
+  .btn.sm{padding:6px 13px; font-size:12px;}
+  .btn.block{width:100%;}
+  .btn.danger{background:transparent; color:var(--coral-ink); border:1px solid var(--coral-soft);}
+
+  /* ---------- create form ---------- */
+  .form-shell{max-width:640px; background:var(--paper); border:1px solid var(--sand-line); border-radius:var(--r-card); padding:26px; box-shadow:var(--shadow);}
+  .f-row{display:grid; gap:6px; margin-bottom:16px;}
+  .f-row.two{grid-template-columns:1fr 1fr; gap:14px;}
+  .f-row label{font-size:12.5px; font-weight:700; color:var(--ink-soft);}
+  .f-row input, .f-row select, .f-row textarea{
+    border:1px solid var(--sand-line); background:var(--mist); border-radius:10px; padding:10px 12px; font-size:14px; width:100%;
+  }
+  .f-row textarea{resize:vertical; min-height:64px;}
+  .f-hint{font-size:11.5px; color:var(--ink-soft);}
+  .review-toggle{display:flex; gap:10px;}
+  .review-opt{
+    flex:1; border:1px solid var(--sand-line); border-radius:12px; padding:10px 12px; cursor:pointer; font-size:12.5px;
+  }
+  .review-opt.selected{border-color:var(--trail); background:var(--trail-soft);}
+  .review-opt b{display:block; font-size:13px; margin-bottom:2px;}
+
+  /* ---------- mine ---------- */
+  .mine-group{margin-bottom:34px;}
+  .mine-group h3{font-size:15px; font-weight:800; margin-bottom:12px; display:flex; align-items:center; gap:8px;}
+  .mine-item{
+    background:var(--paper); border:1px solid var(--sand-line); border-radius:var(--r-card); margin-bottom:12px; overflow:hidden; box-shadow:var(--shadow);
+  }
+  .mine-head{display:flex; justify-content:space-between; align-items:center; gap:12px; padding:15px 18px; cursor:pointer;}
+  .mine-head .ttl{font-size:14.5px; font-weight:700;}
+  .mine-head .sub{font-size:11.5px; color:var(--ink-soft); margin-top:2px;}
+  .chev{transition:transform .15s ease; color:var(--ink-soft); flex:none;}
+  .mine-item.open .chev{transform:rotate(180deg);}
+  .mine-body{padding:0 18px 18px; display:none; flex-direction:column; gap:16px;}
+  .mine-item.open .mine-body{display:flex;}
+
+  .pending-row{display:flex; justify-content:space-between; align-items:center; gap:10px; border:1px solid var(--sand-line); border-radius:12px; padding:10px 12px; background:var(--mist);}
+  .pending-row .note{font-size:12px; color:var(--ink-soft); margin-top:2px;}
+  .pending-actions{display:flex; gap:6px;}
+
+  .pin-card{
+    background:linear-gradient(135deg,var(--trail),#123c34); color:#eafff8; border-radius:14px; padding:14px 16px; font-size:12px;
+  }
+  .pin-card .h{font-weight:700; font-size:13.5px; margin-bottom:8px; display:flex; justify-content:space-between;}
+  .pin-card .r{display:flex; justify-content:space-between; padding-block:2px; opacity:.92;}
+
+  .expense-table{width:100%; border-collapse:collapse; font-size:12.5px;}
+  .expense-table th{text-align:left; font-size:10.5px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.04em; padding-bottom:6px; font-weight:700;}
+  .expense-table td{padding:7px 0; border-top:1px solid var(--sand-line);}
+  .paid-toggle{
+    border:1px solid var(--sand-line); border-radius:var(--r-chip); padding:3px 10px; font-size:11px; cursor:pointer; font-weight:700;
+  }
+  .paid-toggle.yes{background:var(--trail-soft); color:var(--trail); border-color:transparent;}
+  .expense-add{display:grid; grid-template-columns:1.4fr 1fr 1fr auto; gap:8px;}
+  .expense-add input,.expense-add select{border:1px solid var(--sand-line); border-radius:9px; padding:8px 9px; background:var(--mist); font-size:12.5px;}
+
+  .footprint-strip{display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:12px;}
+  .fp-card{background:var(--paper); border:1px solid var(--sand-line); border-radius:14px; padding:12px; box-shadow:var(--shadow);}
+  .fp-photo{aspect-ratio:4/3; border-radius:10px; background:repeating-linear-gradient(135deg,var(--trail-soft),var(--trail-soft) 8px,var(--mist-dim) 8px,var(--mist-dim) 16px); margin-bottom:8px;}
+  .fp-card .t{font-size:12.5px; font-weight:700;}
+  .fp-card .c{font-size:11px; color:var(--ink-soft); margin-top:2px;}
+
+  /* ---------- modal ---------- */
+  .overlay{
+    position:fixed; inset:0; background:rgba(10,14,11,.5); backdrop-filter:blur(2px);
+    display:flex; align-items:flex-end; justify-content:center; z-index:100; padding:0;
+  }
+  @media (min-width:640px){ .overlay{align-items:center; padding:20px;} }
+  .modal{
+    background:var(--paper); width:100%; max-width:520px; max-height:92vh; overflow-y:auto;
+    border-radius:22px 22px 0 0; box-shadow:var(--shadow-lg); padding:22px;
+  }
+  @media (min-width:640px){ .modal{border-radius:22px;} }
+  .modal-close{position:sticky; top:0; float:right; background:var(--mist); border:none; width:30px;height:30px; border-radius:50%; cursor:pointer; font-size:15px; color:var(--ink-soft); margin-bottom:8px;}
+  .modal h3{font-size:19px; font-weight:800; margin-bottom:4px;}
+  .modal .sub{font-size:12.5px; color:var(--ink-soft); margin-bottom:16px;}
+  .detail-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px 16px; margin:16px 0;}
+  .detail-field label{display:block; font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); margin-bottom:3px;}
+  .detail-field div{font-family:'JetBrains Mono',monospace; font-size:13.5px; font-weight:600;}
+  .participant-list{display:flex; flex-wrap:wrap; gap:8px; margin:14px 0;}
+  .p-pill{display:flex; align-items:center; gap:6px; border:1px solid var(--sand-line); border-radius:var(--r-chip); padding:4px 10px 4px 4px; font-size:12px;}
+
+  /* ---------- toast ---------- */
+  #toast{
+    position:fixed; left:50%; bottom:24px; transform:translate(-50%,140%); z-index:200;
+    background:var(--ink); color:var(--mist); padding:12px 20px; border-radius:var(--r-chip);
+    font-size:13px; font-weight:600; box-shadow:var(--shadow-lg); transition:transform .25s ease;
+    max-width:90vw; text-align:center;
+  }
+  #toast.show{transform:translate(-50%,0);}
+
+  footer{border-top:1px solid var(--sand-line); margin-top:20px; padding-block:20px; font-size:12px; color:var(--ink-soft); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;}
 </style>
 
-<div class="wrap">
-
-  <nav class="nav">
+<header>
+  <div class="wrap headbar">
     <div class="brand">
       <div class="brand-mark stamp">凑</div>
       <div>
         <div class="brand-name">凑伴</div>
-        <div class="brand-sub">周末城市探索指南 · 组队功能</div>
+        <div class="brand-sub">周末去哪儿，先找人一起去</div>
       </div>
     </div>
-    <div class="nav-tag">方案二 · 组队社交型「约伴出发」</div>
-  </nav>
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" data-tab="feed" onclick="App.switchTab('feed')">拼场广场</button>
+      <button class="tab-btn" data-tab="create" onclick="App.switchTab('create')">发起拼场</button>
+      <button class="tab-btn" data-tab="mine" onclick="App.switchTab('mine')">我的拼场 <span class="count" id="mineCount">0</span></button>
+    </div>
+    <div class="profile-chip" onclick="App.openProfile()">
+      <div class="avatar" style="background:var(--coral);">我</div>
+      <div class="lv">Lv.<b id="lvNum">1</b> 探索者</div>
+    </div>
+  </div>
+</header>
 
-  <!-- ============ HERO ============ -->
-  <section class="hero" style="padding-top:0;">
-    <div>
-      <div class="eyebrow">产品设计方案 · 详细功能说明</div>
-      <h1>先找到<em>同行的人</em>，<br>周末才真正出发得了</h1>
-      <p class="hero-lede">
-        「凑伴」把发起、匹配、协同这三步做成一条流水线：从发一张拼场卡，到成团自动建群、行程置顶、结束一键分账——
-        让"组队"从私聊里反复确认的麻烦事，变成几次点击就能完成的确定动作。
-      </p>
-      <div class="hero-stats">
-        <div class="stat-chip"><b>3层</b><span>组队痛点拆解</span></div>
-        <div class="stat-chip"><b>5</b><span>核心功能模块</span></div>
-        <div class="stat-chip"><b>2</b><span>条完整用户路径</span></div>
-      </div>
-    </div>
+<main class="wrap">
 
-    <div class="ticket">
-      <div class="ticket-top">
-        <div class="ticket-route">
-          <span class="ticket-code mono">TICKET NO. TT-2609-0873</span>
-          <span class="ticket-status stamp">已成团</span>
-        </div>
-        <div class="ticket-title">外滩晨骑 + 老码头市集</div>
-        <div class="ticket-desc">发起人：@阿汤 · 同校认证</div>
-        <div class="ticket-grid">
-          <div class="ticket-field"><label>集合时间</label><div>周六 09:30</div></div>
-          <div class="ticket-field"><label>集合地点</label><div>南京东路 2号口</div></div>
-          <div class="ticket-field"><label>团队人数</label><div>4 / 6 人</div></div>
-          <div class="ticket-field"><label>预计时长</label><div>约 3.5H</div></div>
-        </div>
-        <div class="ticket-avatars">
-          <div class="av-row">
-            <div class="av" style="background:#ff5b3c;">阿</div>
-            <div class="av" style="background:#1e6f63;">敏</div>
-            <div class="av" style="background:#e8a73b;">辰</div>
-            <div class="av" style="background:#7b6fd6;">桐</div>
-          </div>
-          <small>还差 2 位，候补中 →</small>
-        </div>
-      </div>
-      <div class="ticket-perf"></div>
-      <div class="ticket-bottom">
-        <div class="ticket-price"><span>人均预估</span><b>¥ 95</b></div>
-        <div class="ticket-barcode" aria-hidden="true">
-          <i style="height:18px"></i><i style="height:26px"></i><i style="height:14px"></i><i style="height:24px"></i>
-          <i style="height:20px"></i><i style="height:28px"></i><i style="height:12px"></i><i style="height:22px"></i>
-          <i style="height:16px"></i><i style="height:26px"></i><i style="height:20px"></i>
-        </div>
+  <!-- ============ FEED ============ -->
+  <section id="panel-feed">
+    <div class="panel-head">
+      <div><h2>拼场广场</h2><p>按类型、距离、人均预算筛选附近的拼场，点一张卡看详情、申请加入。</p></div>
+    </div>
+    <div class="filter-bar">
+      <div class="chip-row" id="catChips"></div>
+      <select class="sortsel" id="sortSel" onchange="App.render()">
+        <option value="new">最新发起</option>
+        <option value="near">距离最近</option>
+        <option value="cheap">人均最低</option>
+      </select>
+      <div class="search-box">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="searchInput" placeholder="搜索活动、地点…" oninput="App.render()">
       </div>
     </div>
+    <div class="grid" id="feedGrid"></div>
   </section>
 
-  <!-- ============ PAIN POINTS ============ -->
-  <section>
-    <div class="section-head">
-      <span class="section-num">01</span>
-      <h2>组队难，到底难在哪三层</h2>
-    </div>
-    <p class="section-note">"凑不齐人"背后其实不是一个问题，而是信息、决策、执行三层摩擦叠加的结果——方案二逐层拆解，逐层用功能化解。</p>
-
-    <div class="pain-grid">
-      <div class="pain-card">
-        <div class="pain-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
-        <div class="pain-layer">信息层</div>
-        <h3>有活动，没伙伴</h3>
-        <p>各平台解决的是"哪里好玩"，却没人解决"和谁去"——这是被现有工具集体忽略的一环。</p>
+  <!-- ============ CREATE ============ -->
+  <section id="panel-create" hidden>
+    <div class="panel-head"><div><h2>发起拼场</h2><p>把一个念头变成大家能看到、能加入的具体入口。</p></div></div>
+    <form class="form-shell" id="createForm" onsubmit="return App.handleCreate(event)">
+      <div class="f-row">
+        <label>活动名称</label>
+        <input name="title" placeholder="例如：中山公园手作市集 + 老洋房漫步" required>
       </div>
-      <div class="pain-card">
-        <div class="pain-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M4 12l5-5M4 12l5 5"/></svg></div>
-        <div class="pain-layer">决策层</div>
-        <h3>一个人，想想就算了</h3>
-        <p>独自决策的心理门槛远高于一群人已约好——组队场景用社交承诺替代个人意志力。</p>
-      </div>
-      <div class="pain-card">
-        <div class="pain-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 13h5"/></svg></div>
-        <div class="pain-layer">执行层</div>
-        <h3>拉了群，却死在筹备里</h3>
-        <p>定时间、算账、通知变动的琐碎摩擦，经常让计划死在微信群里，而不是死在没人想去。</p>
-      </div>
-    </div>
-  </section>
-
-  <div class="trail-divider"><span class="dot"></span><span class="line"></span><span class="dot"></span></div>
-
-  <!-- ============ DESIGN LOGIC / ROUTE ============ -->
-  <section>
-    <div class="section-head">
-      <span class="section-num">02</span>
-      <h2>设计思路：把"约人"拆成三段可产品化的路</h2>
-    </div>
-    <p class="section-note">不做泛社交匹配，而是依附在具体活动场景上的轻社交——用户因为想去同一个地方而产生连接，天然过滤掉纯搭讪意图。</p>
-
-    <div class="route">
-      <div class="route-step">
-        <div class="waypoint stamp">起</div>
-        <h3>发起</h3>
-        <p>把一个念头变成一个可被看见、可被加入的具体入口，解决"信息层"的孤立感。</p>
-      </div>
-      <div class="route-step">
-        <div class="waypoint stamp">配</div>
-        <h3>匹配加入</h3>
-        <p>用轻量信任信号降低陌生人组队门槛，让"要不要一起去"变成一个轻决定。</p>
-      </div>
-      <div class="route-step">
-        <div class="waypoint stamp">行</div>
-        <h3>协同执行</h3>
-        <p>定时间、分钱、发通知自动化，把组织者的琐碎负担从流程里拿掉。</p>
-      </div>
-    </div>
-  </section>
-
-  <div class="trail-divider"><span class="dot"></span><span class="line"></span><span class="dot"></span></div>
-
-  <!-- ============ FEATURE MODULES ============ -->
-  <section>
-    <div class="section-head">
-      <span class="section-num">03</span>
-      <h2>五大功能模块</h2>
-    </div>
-    <p class="section-note">每个模块对应解决上面某一层摩擦，下面用示意界面还原关键页面的信息结构。</p>
-
-    <!-- Module 1: 发起拼场 -->
-    <div class="module">
-      <div class="module-phone">
-        <div class="phone">
-          <div class="phone-screen">
-            <div class="phone-notch"></div>
-            <div class="phone-status"><span>09:41</span><span>●●● 5G 86%</span></div>
-            <div class="phone-bar">发起拼场 <span style="color:var(--coral); font-size:12px;">保存草稿</span></div>
-            <div class="phone-body">
-              <div class="form-field"><label>活动</label><div>外滩晨骑 + 老码头市集</div></div>
-              <div class="form-field"><label>时间窗口</label><div>周六 09:30–13:00</div></div>
-              <div class="form-field"><label>人数上限</label><div>6 人（含我）</div></div>
-              <div class="form-field"><label>人均预算</label><div>¥ 80 – 120</div></div>
-              <div class="form-field"><label>审核方式</label><div>发起人审核 ✓</div></div>
-              <div class="form-cta">生成拼场卡 →</div>
-            </div>
-          </div>
+      <div class="f-row two">
+        <div>
+          <label>活动类型</label>
+          <select name="category" required>
+            <option value="骑行">骑行</option>
+            <option value="市集">市集</option>
+            <option value="徒步">徒步</option>
+            <option value="摄影">摄影</option>
+            <option value="咖啡">咖啡漫游</option>
+            <option value="露营">露营</option>
+          </select>
+        </div>
+        <div>
+          <label>集合时间</label>
+          <input name="time" placeholder="本周六 09:30" required>
         </div>
       </div>
-      <div class="module-text">
-        <span class="module-tag">模块一 · 发起者视角</span>
-        <h3>发起拼场</h3>
-        <p>从活动详情页一键发起，无需重填信息；招募条件、预算区间提前亮出来，加入者一眼判断是否匹配自己。</p>
-        <ul class="module-list">
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg><span><b>一键发起</b> — 对接推荐结果或自建，人数/性别偏好/集合点可选设置。</span></li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg><span><b>预算预填</b> — 人均花费区间提前展示，避免加入后才发现超预算。</span></li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg><span><b>审核方式可选</b> — 自动通过快速成团，或发起人审核更谨慎。</span></li>
-        </ul>
+      <div class="f-row">
+        <label>集合地点</label>
+        <input name="meet" placeholder="地铁站 / 具体路口" required>
       </div>
-    </div>
-
-    <!-- Module 2: 拼场广场 -->
-    <div class="module reverse">
-      <div class="module-phone">
-        <div class="phone">
-          <div class="phone-screen">
-            <div class="phone-notch"></div>
-            <div class="phone-status"><span>09:41</span><span>●●● 5G 86%</span></div>
-            <div class="phone-bar">拼场广场 <span style="color:var(--ink-soft); font-size:12px;">筛选 ⌄</span></div>
-            <div class="phone-body">
-              <div class="feed-item">
-                <div class="row1"><div class="ttl">东湖绿道 · 傍晚骑行</div><span class="badge">3/5人</span></div>
-                <div class="meta">周六 16:00 · 距你 1.8km · 人均¥40</div>
-              </div>
-              <div class="feed-item">
-                <div class="row1"><div class="ttl">南头古城 · 手作市集淘货</div><span class="badge">2/4人</span></div>
-                <div class="meta">周日 10:00 · 距你 3.2km · 人均¥60</div>
-              </div>
-              <div class="feed-item">
-                <div class="row1"><div class="ttl">望海堤 · 露营看日出</div><span class="badge" style="background:var(--sand); color:var(--ink-soft);">候补中</span></div>
-                <div class="meta">周六 05:30 · 距你 6.5km · 人均¥150</div>
-              </div>
-              <div class="feed-item">
-                <div class="row1"><div class="ttl">老街巷弄 · 咖啡馆漫游</div><span class="badge">4/4人 已满</span></div>
-                <div class="meta">周日 14:00 · 距你 2.0km · 人均¥55</div>
-              </div>
-            </div>
-          </div>
+      <div class="f-row two">
+        <div>
+          <label>最少成团人数</label>
+          <input name="minCap" type="number" min="2" max="20" value="3" required>
+        </div>
+        <div>
+          <label>人数上限</label>
+          <input name="maxCap" type="number" min="2" max="20" value="6" required>
         </div>
       </div>
-      <div class="module-text">
-        <span class="module-tag">模块二 · 参与者视角</span>
-        <h3>发现与加入</h3>
-        <p>按时间、距离、活动类型筛选附近拼场；人满自动转候补，有人退出即递补，不用一直手动刷新。</p>
-        <ul class="module-list">
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg><span><b>信任标签</b> — 同校认证、历史成团次数、过往评价轻量展示。</span></li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg><span><b>模板化申请</b> — 预设自我介绍模板，降低陌生人加入的输入门槛。</span></li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg><span><b>候补自动递补</b> — 人满不等于错过，退出即时补位并通知。</span></li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Module 3: 成团协同 -->
-    <div class="module">
-      <div class="module-phone">
-        <div class="phone">
-          <div class="phone-screen">
-            <div class="phone-notch"></div>
-            <div class="phone-status"><span>09:41</span><span>●●● 5G 86%</span></div>
-            <div class="phone-bar">外滩晨骑 · 群聊</div>
-            <div class="phone-body">
-              <div class="pin-card">
-                <div class="h"><span>📌 已置顶行程</span><span>阴转多云 21°C</span></div>
-                <div class="r"><span>集合</span><span>09:30 · 南京东路2号口</span></div>
-                <div class="r"><span>雨天备选</span><span>老码头室内市集</span></div>
-              </div>
-              <div class="bubble them">阿汤：明早9点15在地铁口集合哈，别迟到～</div>
-              <div class="bubble them">小敏：收到！带了充电宝备用</div>
-              <div class="bubble me">我：好嘞，骑行头盔我多带一顶</div>
-            </div>
-          </div>
+      <div class="f-row two">
+        <div>
+          <label>人均预算下限（¥）</label>
+          <input name="budgetMin" type="number" min="0" value="40" required>
+        </div>
+        <div>
+          <label>人均预算上限（¥）</label>
+          <input name="budgetMax" type="number" min="0" value="80" required>
         </div>
       </div>
-      <div class="module-text">
-        <span class="module-tag">模块三 · 成团之后</span>
-        <h3>协同执行</h3>
-        <p>满足最低成团人数自动建群，行程卡置顶代替反复翻聊天记录；活动结束一键发起 AA，谁付了钱一目了然。</p>
-        <ul class="module-list">
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg><span><b>行程卡置顶</b> — 时间/地点/天气/备选方案结构化展示，不用翻记录。</span></li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg><span><b>AA 分账工具</b> — 自动算人均，记录已付/未付，杜绝"总有一个人不结账"。</span></li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg><span><b>变动自动通知</b> — 天气突变 / 人员退出实时推送全员，组织者不必逐个艾特。</span></li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Module 4: 打卡沉淀 -->
-    <div class="module reverse">
-      <div class="module-phone">
-        <div class="phone">
-          <div class="phone-screen">
-            <div class="phone-notch"></div>
-            <div class="phone-status"><span>09:41</span><span>●●● 5G 86%</span></div>
-            <div class="phone-bar">发个打卡 <span style="color:var(--coral); font-size:12px;">发布</span></div>
-            <div class="phone-body">
-              <div class="photo-grid">
-                <div class="photo-tile"><span>骑行途中</span></div>
-                <div class="photo-tile"><span>老码头市集</span></div>
-                <div class="photo-tile"><span>合影</span></div>
-                <div class="photo-tile"><span>+2</span></div>
-              </div>
-              <div class="form-field"><label>同行伙伴</label><div>@阿汤 @小敏 @阿辰 +1</div></div>
-              <div class="form-field"><label>成就徽章</label><div>🏅 周末探索家 · Lv.3</div></div>
-            </div>
-          </div>
+      <div class="f-row">
+        <label>审核方式</label>
+        <div class="review-toggle">
+          <label class="review-opt selected" data-val="auto">
+            <input type="radio" name="reviewMode" value="auto" checked style="display:none">
+            <b>自动通过</b><span class="f-hint">申请即加入，快速成团</span>
+          </label>
+          <label class="review-opt" data-val="manual">
+            <input type="radio" name="reviewMode" value="manual" style="display:none">
+            <b>发起人审核</b><span class="f-hint">你来确认每一位同行者</span>
+          </label>
         </div>
       </div>
-      <div class="module-text">
-        <span class="module-tag">模块四 · 活动后沉淀</span>
-        <h3>打卡与信任沉淀</h3>
-        <p>成团完成后引导发布打卡并自动@同行伙伴，形成裂变内容素材；历史拼场记录成为"探索足迹"，是长期留存的情感锚点。</p>
-        <ul class="module-list">
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg><span><b>自动关联同行者</b> — 打卡内容天然带出组队关系，反哺拼场广场的真实感。</span></li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg><span><b>轻度游戏化</b> — 徽章与等级刺激持续产出内容，形成正向循环。</span></li>
-        </ul>
+      <div class="f-row">
+        <label>备注（可选）</label>
+        <textarea name="note" placeholder="装备要求、雨天备选方案…"></textarea>
       </div>
-    </div>
+      <button class="btn primary block" type="submit">生成拼场卡 →</button>
+    </form>
   </section>
 
-  <div class="trail-divider"><span class="dot"></span><span class="line"></span><span class="dot"></span></div>
+  <!-- ============ MINE ============ -->
+  <section id="panel-mine" hidden>
+    <div class="panel-head"><div><h2>我的拼场</h2><p>管理你发起的拼场、查看已加入的行程，结束后一键 AA 分账。</p></div></div>
 
-  <!-- ============ TRUST & SAFETY ============ -->
-  <section>
-    <div class="section-head">
-      <span class="section-num">04</span>
-      <h2>信任与安全机制</h2>
+    <div class="mine-group">
+      <h3>我发起的 <span class="count mono" id="createdCount" style="background:var(--sand-line); padding:1px 7px; border-radius:8px; font-size:11px;">0</span></h3>
+      <div id="createdList"></div>
     </div>
-    <p class="section-note">这是组队型产品的生命线——没有这一层，前面所有功能都建立在流沙上。</p>
-
-    <div class="trust-strip">
-      <div class="trust-item">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg>
-        <h4>身份认证</h4>
-        <p>同校 / 同城标签认证，降低陌生人风险，是所有信任标签的基础。</p>
-      </div>
-      <div class="trust-item">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg>
-        <h4>举报与黑名单</h4>
-        <p>一键举报不当行为，被举报账号限制发起 / 加入拼场的权限。</p>
-      </div>
-      <div class="trust-item">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-7-10a7 7 0 0114 0c0 5.5-7 10-7 10z"/><circle cx="12" cy="11" r="2.4"/></svg>
-        <h4>位置一键分享</h4>
-        <p>活动期间可向紧急联系人分享实时位置，遇事一键求助。</p>
-      </div>
-      <div class="trust-item">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 17.3l-5.4 3 1-6-4.4-4.3 6.1-.9L12 3l2.7 5.1 6.1.9-4.4 4.3 1 6z"/></svg>
-        <h4>互评机制</h4>
-        <p>活动结束后互相评价准时度、友善度，沉淀为信任标签，形成正向循环。</p>
-      </div>
+    <div class="mine-group">
+      <h3>我加入的 <span class="count mono" id="joinedCount" style="background:var(--sand-line); padding:1px 7px; border-radius:8px; font-size:11px;">0</span></h3>
+      <div id="joinedList"></div>
     </div>
-  </section>
-
-  <div class="trail-divider"><span class="dot"></span><span class="line"></span><span class="dot"></span></div>
-
-  <!-- ============ USER JOURNEY TABS ============ -->
-  <section>
-    <div class="section-head">
-      <span class="section-num">05</span>
-      <h2>完整用户路径</h2>
-    </div>
-    <p class="section-note">发起成本要低于私聊拉群，加入成本要低于私下问朋友——这是两条路径设计的共同底线。</p>
-
-    <div class="tabs" role="tablist" aria-label="用户路径">
-      <button class="tab-btn" role="tab" id="tab-initiator" aria-selected="true" aria-controls="panel-initiator">发起方</button>
-      <button class="tab-btn" role="tab" id="tab-joiner" aria-selected="false" aria-controls="panel-joiner">参与方</button>
-    </div>
-
-    <div class="journey" id="panel-initiator" role="tabpanel" aria-labelledby="tab-initiator">
-      <div class="j-step"><div class="rail"><div class="node mono">1</div><div class="stem"></div></div><div><h4>看到心仪活动</h4><p>可来自推荐引擎结果，也可自建活动。</p></div></div>
-      <div class="j-step"><div class="rail"><div class="node mono">2</div><div class="stem"></div></div><div><h4>一键发起拼场</h4><p>设定人数上限、预算区间、时间窗口与审核方式。</p></div></div>
-      <div class="j-step"><div class="rail"><div class="node mono">3</div><div class="stem"></div></div><div><h4>收到申请并审核</h4><p>查看信任标签，通过或婉拒申请者。</p></div></div>
-      <div class="j-step"><div class="rail"><div class="node mono">4</div><div class="stem"></div></div><div><h4>满员自动建群</h4><p>置顶行程卡，无需手动整理信息重发一遍。</p></div></div>
-      <div class="j-step"><div class="rail"><div class="node mono">5</div><div class="stem"></div></div><div><h4>结束发起 AA</h4><p>一键生成账单，系统自动追踪付款状态。</p></div></div>
-      <div class="j-step"><div class="rail"><div class="node mono">6</div></div><div><h4>互相评价</h4><p>为同行伙伴打分，沉淀自己的信任分与"探索足迹"。</p></div></div>
-    </div>
-
-    <div class="journey" id="panel-joiner" role="tabpanel" aria-labelledby="tab-joiner" hidden>
-      <div class="j-step"><div class="rail"><div class="node mono">1</div><div class="stem"></div></div><div><h4>浏览拼场广场</h4><p>按时间、距离、活动类型筛选附近的拼场。</p></div></div>
-      <div class="j-step"><div class="rail"><div class="node mono">2</div><div class="stem"></div></div><div><h4>提交加入申请</h4><p>用预设模板附一句自我介绍，降低输入门槛。</p></div></div>
-      <div class="j-step"><div class="rail"><div class="node mono">3</div><div class="stem"></div></div><div><h4>等待 / 被通知成团</h4><p>人未满可先候补，有人退出自动递补上位。</p></div></div>
-      <div class="j-step"><div class="rail"><div class="node mono">4</div><div class="stem"></div></div><div><h4>群内协同</h4><p>查看置顶行程卡，确认集合信息即可，无需反复确认。</p></div></div>
-      <div class="j-step"><div class="rail"><div class="node mono">5</div><div class="stem"></div></div><div><h4>参与活动</h4><p>按行程卡上的集合点与时间赴约。</p></div></div>
-      <div class="j-step"><div class="rail"><div class="node mono">6</div></div><div><h4>打卡 / 评价</h4><p>发布同行打卡，为发起人与同伴互评。</p></div></div>
+    <div class="mine-group">
+      <h3>我的探索足迹</h3>
+      <div class="footprint-strip" id="footprintStrip"></div>
     </div>
   </section>
 
   <footer>
-    <div><span class="stamp">凑伴</span> · 周末城市探索指南 · 组队功能设计方案</div>
-    <div>方向二：组队社交型「约伴出发」 — 依附在具体活动场景上的轻社交</div>
+    <div><span class="stamp">凑伴</span> · 周末城市探索指南 · 组队功能原型</div>
+    <div>数据保存在本浏览器（localStorage），仅你可见 · 刷新不丢失</div>
   </footer>
+</main>
 
-</div>
+<div id="toast"></div>
 
 <script>
 (function(){
-  var tabs = [
-    { btn: document.getElementById('tab-initiator'), panel: document.getElementById('panel-initiator') },
-    { btn: document.getElementById('tab-joiner'), panel: document.getElementById('panel-joiner') }
-  ];
-  tabs.forEach(function(t, i){
-    t.btn.addEventListener('click', function(){
-      tabs.forEach(function(o, j){
-        var active = j === i;
-        o.btn.setAttribute('aria-selected', active ? 'true' : 'false');
-        o.panel.hidden = !active;
-      });
+  "use strict";
+
+  var CATS = ["骑行","市集","徒步","摄影","咖啡","露营"];
+  var AVATAR_COLORS = {"我":"#ff5b3c","阿汤":"#1e6f63","小敏":"#e8a73b","阿辰":"#7b6fd6","小桐":"#3f9dd6",
+    "小周":"#d6588f","阿杰":"#5b8c3f","林林":"#c9862b","夏夏":"#c25b8f","阿乐":"#2f8f7c","阿雅":"#8f6f2f"};
+  function avColor(n){ return AVATAR_COLORS[n] || "#7b6fd6"; }
+  function initials(n){ return n ? n.slice(-1) : "?"; }
+  function uid(){ return "l" + Math.random().toString(36).slice(2,9); }
+  function fmtMoney(a,b){ return "¥" + a + "–" + b; }
+
+  var KEY = "coubang_state_v1";
+
+  function seed(){
+    return {
+      lv: 2,
+      footprints: [
+        {title:"东湖绿道 · 傍晚骑行", caption:"和三个骑友一路吹着风到江边，日落时刚好到终点，超值。", withNames:["阿汤","小敏"]}
+      ],
+      listings: [
+        {
+          id:"l1", creator:"阿汤", title:"外滩晨骑 + 老码头市集", category:"骑行", time:"本周六 09:30",
+          meet:"南京东路地铁站2号口", minCap:4, maxCap:6, budgetMin:80, budgetMax:120, reviewMode:"manual",
+          weather:"阴转多云 21°C", distance:1.8, note:"骑行头盔现场可借，雨天备选老码头室内市集。",
+          participants:[{name:"阿汤",role:"creator"},{name:"小敏"},{name:"阿辰"},{name:"小桐"}],
+          pending:[], waitlist:[], expenses:[], paid:{}, done:false
+        },
+        {
+          id:"l2", creator:"小周", title:"南头古城手作市集淘货", category:"市集", time:"本周日 10:00",
+          meet:"南头古城北门", minCap:2, maxCap:4, budgetMin:40, budgetMax:60, reviewMode:"auto",
+          weather:"晴 26°C", distance:3.2, note:"主打陶艺和扎染摊位，逛完可以顺路喝咖啡。",
+          participants:[{name:"小周",role:"creator"}],
+          pending:[], waitlist:[], expenses:[], paid:{}, done:false
+        },
+        {
+          id:"l3", creator:"阿杰", title:"梧桐山徒步看日出", category:"徒步", time:"本周六 05:30",
+          meet:"梧桐山地铁站", minCap:4, maxCap:6, budgetMin:30, budgetMax:50, reviewMode:"manual",
+          weather:"晴 18°C", distance:6.5, note:"建议带手电和外套，山顶风大。",
+          participants:[{name:"阿杰",role:"creator"},{name:"小雅"},{name:"阿凯"},{name:"小北"},{name:"阿萌"},{name:"阿雅"}],
+          pending:[], waitlist:[{name:"小惠",note:"经常夜爬，体力没问题！"}], expenses:[], paid:{}, done:false
+        },
+        {
+          id:"l4", creator:"我", title:"老街巷弄咖啡馆漫游", category:"咖啡", time:"下周日 14:00",
+          meet:"中山路老街入口", minCap:3, maxCap:4, budgetMin:50, budgetMax:60, reviewMode:"manual",
+          weather:"多云 23°C", distance:0, note:"想找三家有意思的独立咖啡馆坐一坐，顺便拍照。",
+          participants:[{name:"我",role:"creator"}],
+          pending:[{name:"夏夏",note:"超喜欢老建筑和咖啡，想一起逛逛！"},{name:"阿乐",note:"摄影爱好者，可以帮忙拍照～"}],
+          waitlist:[], expenses:[], paid:{}, done:false
+        }
+      ]
+    };
+  }
+
+  function load(){
+    try{
+      var raw = localStorage.getItem(KEY);
+      if(raw) return JSON.parse(raw);
+    }catch(e){}
+    var s = seed();
+    save(s);
+    return s;
+  }
+  function save(s){ try{ localStorage.setItem(KEY, JSON.stringify(s)); }catch(e){} }
+
+  var state = load();
+  var ui = { tab:"feed", cat:"全部", openMine:{} };
+
+  function approvedCount(l){ return l.participants.length; }
+  function statusOf(l){
+    if(l.done) return "done";
+    var c = approvedCount(l);
+    if(c >= l.maxCap) return "full";
+    if(c >= l.minCap) return "ready";
+    return "open";
+  }
+  function statusLabel(s){
+    return {open:"征集中", ready:"已成团", full:"已满员", done:"已完成"}[s];
+  }
+
+  function toast(msg){
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function(){ t.classList.remove('show'); }, 2200);
+  }
+
+  function persistAndRender(){ save(state); render(); }
+
+  /* ---------------- render ---------------- */
+  function render(){
+    renderTabs();
+    renderCatChips();
+    renderFeed();
+    renderMine();
+    document.getElementById('lvNum').textContent = state.lv;
+  }
+
+  function renderTabs(){
+    document.querySelectorAll('.tab-btn').forEach(function(b){
+      b.classList.toggle('active', b.dataset.tab === ui.tab);
     });
+    document.getElementById('panel-feed').hidden = ui.tab !== 'feed';
+    document.getElementById('panel-create').hidden = ui.tab !== 'create';
+    document.getElementById('panel-mine').hidden = ui.tab !== 'mine';
+    var mineTotal = state.listings.filter(byMe).length + state.listings.filter(joinedNotMine).length;
+    document.getElementById('mineCount').textContent = mineTotal;
+  }
+
+  function renderCatChips(){
+    var el = document.getElementById('catChips');
+    var chips = ["全部"].concat(CATS);
+    el.innerHTML = chips.map(function(c){
+      return '<button class="chip'+(ui.cat===c?' active':'')+'" onclick="App.setCat(\''+c+'\')">'+c+'</button>';
+    }).join('');
+  }
+
+  function renderFeed(){
+    var q = (document.getElementById('searchInput').value || "").trim().toLowerCase();
+    var sort = document.getElementById('sortSel').value;
+    var list = state.listings.filter(function(l){
+      if(ui.cat !== "全部" && l.category !== ui.cat) return false;
+      if(q && !(l.title.toLowerCase().indexOf(q)>-1 || l.meet.toLowerCase().indexOf(q)>-1)) return false;
+      return true;
+    });
+    if(sort==="near") list = list.slice().sort(function(a,b){ return a.distance-b.distance; });
+    else if(sort==="cheap") list = list.slice().sort(function(a,b){ return a.budgetMin-b.budgetMin; });
+    else list = list.slice().reverse();
+
+    var grid = document.getElementById('feedGrid');
+    if(!list.length){
+      grid.innerHTML = '<div class="empty">没有符合条件的拼场，换个筛选试试，或者<a href="#" onclick="App.switchTab(\'create\');return false;" style="color:var(--coral-ink); font-weight:700;">自己发起一个</a>。</div>';
+      return;
+    }
+    grid.innerHTML = list.map(function(l){
+      var s = statusOf(l);
+      var pct = Math.min(100, Math.round(approvedCount(l)/l.maxCap*100));
+      var avs = l.participants.slice(0,4).map(function(p){
+        return '<div class="av-sm" style="background:'+avColor(p.name)+'">'+initials(p.name)+'</div>';
+      }).join('');
+      return '<div class="card" onclick="App.openListing(\''+l.id+'\')">'+
+        '<div class="top"><span class="cat-tag">'+l.category+'</span><span class="badge '+s+'">'+
+          (s==='full'? '已满 · 候补开放' : approvedCount(l)+'/'+l.maxCap+'人 · '+statusLabel(s))+'</span></div>'+
+        '<h3>'+l.title+'</h3>'+
+        '<div class="meta-row">'+
+          '<span>🕐 '+l.time+'</span>'+
+          '<span>📍 距你 '+(l.distance>0? l.distance+'km' : '同校') +'</span>'+
+        '</div>'+
+        '<div class="progress"><i style="width:'+pct+'%"></i></div>'+
+        '<div class="bottom"><span class="price mono">'+fmtMoney(l.budgetMin,l.budgetMax)+'</span><div class="avatars">'+avs+'</div></div>'+
+      '</div>';
+    }).join('');
+  }
+
+  function byMe(l){ return l.creator === "我"; }
+  function joinedNotMine(l){ return l.creator!=="我" && l.participants.some(function(p){return p.name==="我";}); }
+
+  function renderMine(){
+    var created = state.listings.filter(byMe);
+    var joined = state.listings.filter(joinedNotMine);
+    document.getElementById('createdCount').textContent = created.length;
+    document.getElementById('joinedCount').textContent = joined.length;
+
+    document.getElementById('createdList').innerHTML = created.length
+      ? created.map(function(l){ return mineItemHtml(l, true); }).join('')
+      : '<div class="empty" style="border-radius:14px;">还没有发起过拼场 · <a href="#" onclick="App.switchTab(\'create\');return false;" style="color:var(--coral-ink); font-weight:700;">去发起一个</a></div>';
+
+    document.getElementById('joinedList').innerHTML = joined.length
+      ? joined.map(function(l){ return mineItemHtml(l, false); }).join('')
+      : '<div class="empty" style="border-radius:14px;">还没有加入任何拼场 · 去广场看看吧</div>';
+
+    var fp = state.footprints.slice().reverse();
+    document.getElementById('footprintStrip').innerHTML = fp.length ? fp.map(function(f){
+      return '<div class="fp-card"><div class="fp-photo"></div><div class="t">'+f.title+'</div>'+
+        '<div class="c">与 '+f.withNames.join('、')+' 同行</div></div>';
+    }).join('') : '<div class="empty" style="border-radius:14px;">完成第一次拼场活动后，足迹会出现在这里。</div>';
+  }
+
+  function mineItemHtml(l, isCreator){
+    var s = statusOf(l);
+    var open = ui.openMine[l.id];
+    var unlocked = (s==='ready' || s==='full' || s==='done');
+    var body = "";
+
+    if(isCreator && l.pending.length){
+      body += '<div><div class="f-hint" style="margin-bottom:8px; font-weight:700; color:var(--ink);">待审核申请（'+l.pending.length+'）</div>' +
+        l.pending.map(function(p,i){
+          return '<div class="pending-row" style="margin-bottom:8px;">'+
+            '<div><b style="font-size:13px;">'+p.name+'</b><div class="note">'+p.note+'</div></div>'+
+            '<div class="pending-actions">'+
+              '<button class="btn sm trail" onclick="event.stopPropagation();App.approve(\''+l.id+'\','+i+')">通过</button>'+
+              '<button class="btn sm danger" onclick="event.stopPropagation();App.reject(\''+l.id+'\','+i+')">婉拒</button>'+
+            '</div></div>';
+        }).join('') + '</div>';
+    }
+
+    body += '<div><div class="f-hint" style="margin-bottom:8px; font-weight:700; color:var(--ink);">同行伙伴（'+approvedCount(l)+'/'+l.maxCap+'）</div>'+
+      '<div class="participant-list">' + l.participants.map(function(p){
+        return '<div class="p-pill"><span class="av-sm" style="background:'+avColor(p.name)+'; margin-left:0;">'+initials(p.name)+'</span>'+p.name+(p.role==='creator'?' · 发起人':'')+'</div>';
+      }).join('') + '</div></div>';
+
+    if(unlocked){
+      body += '<div class="pin-card"><div class="h"><span>📌 已置顶行程</span><span>'+l.weather+'</span></div>'+
+        '<div class="r"><span>集合</span><span>'+l.time+' · '+l.meet+'</span></div>'+
+        '<div class="r"><span>备注</span><span>'+ (l.note||'—') +'</span></div></div>';
+
+      body += renderExpenseBlock(l);
+
+      if(!l.done){
+        body += '<button class="btn trail block" onclick="event.stopPropagation();App.completeListing(\''+l.id+'\')">标记完成并打卡 →</button>';
+      } else {
+        body += '<div class="f-hint">✓ 已完成，足迹已记录到你的探索档案</div>';
+      }
+    } else if(isCreator) {
+      body += '<div class="f-hint">还差 '+(l.minCap-approvedCount(l))+' 人达到最少成团人数，达到后可解锁行程卡与 AA 分账。</div>';
+    }
+
+    return '<div class="mine-item'+(open?' open':'')+'" id="mine-'+l.id+'">'+
+      '<div class="mine-head" onclick="App.toggleMine(\''+l.id+'\')">'+
+        '<div><div class="ttl">'+l.title+'</div><div class="sub">'+l.time+' · '+statusLabel(s)+(isCreator?' · 你是发起人':'')+'</div></div>'+
+        '<svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>'+
+      '</div>'+
+      '<div class="mine-body">'+body+'</div>'+
+    '</div>';
+  }
+
+  function renderExpenseBlock(l){
+    var people = l.participants.map(function(p){return p.name;});
+    var total = l.expenses.reduce(function(a,e){return a+Number(e.amount);},0);
+    var share = people.length ? (total/people.length) : 0;
+    var rows = people.map(function(name){
+      var isPaid = !!l.paid[name];
+      return '<tr><td>'+name+'</td><td class="mono">¥'+share.toFixed(1)+'</td><td>'+
+        '<button class="paid-toggle'+(isPaid?' yes':'')+'" onclick="event.stopPropagation();App.togglePaid(\''+l.id+'\',\''+name+'\')">'+(isPaid?'已支付 ✓':'待支付')+'</button>'+
+      '</td></tr>';
+    }).join('');
+    var items = l.expenses.map(function(e){
+      return '<tr><td>'+e.item+'</td><td class="mono">¥'+e.amount+'</td><td class="f-hint">'+e.payer+' 垫付</td></tr>';
+    }).join('');
+
+    return '<div>'+
+      '<div class="f-hint" style="margin-bottom:8px; font-weight:700; color:var(--ink);">AA 分账 · 合计 <span class="mono">¥'+total.toFixed(1)+'</span></div>'+
+      (l.expenses.length ? '<table class="expense-table" style="margin-bottom:10px;"><tbody>'+items+'</tbody></table>' : '<div class="f-hint" style="margin-bottom:10px;">还没有账目，先记一笔吧。</div>')+
+      '<div class="expense-add" onclick="event.stopPropagation();">'+
+        '<input placeholder="项目，如：门票" id="exp-item-'+l.id+'">'+
+        '<input placeholder="金额" type="number" id="exp-amt-'+l.id+'">'+
+        '<select id="exp-payer-'+l.id+'">'+ people.map(function(n){return '<option value="'+n+'">'+n+' 垫付</option>';}).join('') +'</select>'+
+        '<button class="btn sm primary" onclick="App.addExpense(\''+l.id+'\')">记账</button>'+
+      '</div>'+
+      (l.expenses.length ? '<table class="expense-table" style="margin-top:12px;"><thead><tr><th>成员</th><th>应付</th><th>状态</th></tr></thead><tbody>'+rows+'</tbody></table>' : '')+
+    '</div>';
+  }
+
+  /* ---------------- modal (feed detail) ---------------- */
+  function openModal(html){
+    var ov = document.createElement('div');
+    ov.className = 'overlay';
+    ov.id = 'activeOverlay';
+    ov.onclick = function(e){ if(e.target===ov) closeModal(); };
+    ov.innerHTML = '<div class="modal">'+html+'</div>';
+    document.body.appendChild(ov);
+  }
+  function closeModal(){
+    var ov = document.getElementById('activeOverlay');
+    if(ov) ov.remove();
+  }
+
+  function listingDetailHtml(l){
+    var s = statusOf(l);
+    var iAmIn = l.participants.some(function(p){return p.name==="我";});
+    var iPending = l.pending.some(function(p){return p.name==="我";});
+    var iWaitlisted = l.waitlist.some(function(p){return p.name==="我";});
+    var isFull = s==='full';
+    var isMine = l.creator==='我';
+
+    var actionHtml;
+    if(isMine){
+      actionHtml = '<div class="f-hint">这是你发起的拼场，去"我的拼场"里管理申请。</div>';
+    } else if(iAmIn){
+      actionHtml = '<div class="f-hint">✓ 你已加入，行程详情见"我的拼场"。</div>';
+    } else if(iPending){
+      actionHtml = '<div class="f-hint">⏳ 申请已提交，等待发起人审核。</div>';
+    } else if(iWaitlisted){
+      actionHtml = '<div class="f-hint">📋 你在候补队列中，有人退出会自动通知你。</div>';
+    } else if(isFull){
+      actionHtml = '<button class="btn ghost block" onclick="App.joinWaitlist(\''+l.id+'\')">加入候补队列</button>';
+    } else {
+      actionHtml = '<div class="f-row"><label>给发起人留句话</label><textarea id="applyNote" placeholder="介绍一下自己，或者说说为什么想一起去～"></textarea></div>'+
+        '<button class="btn primary block" onclick="App.apply(\''+l.id+'\')">'+(l.reviewMode==='auto'?'立即加入':'提交申请')+'</button>';
+    }
+
+    return '<button class="modal-close" onclick="App.closeModal()">✕</button>'+
+      '<span class="cat-tag">'+l.category+'</span>'+
+      '<h3 style="margin-top:10px;">'+l.title+'</h3>'+
+      '<div class="sub">发起人 '+l.creator+' · '+(l.reviewMode==='auto'?'自动通过':'发起人审核')+' · '+statusLabel(s)+'</div>'+
+      '<div class="detail-grid">'+
+        '<div class="detail-field"><label>集合时间</label><div>'+l.time+'</div></div>'+
+        '<div class="detail-field"><label>集合地点</label><div>'+l.meet+'</div></div>'+
+        '<div class="detail-field"><label>团队人数</label><div>'+approvedCount(l)+' / '+l.maxCap+' 人</div></div>'+
+        '<div class="detail-field"><label>人均预算</label><div>'+fmtMoney(l.budgetMin,l.budgetMax)+'</div></div>'+
+      '</div>'+
+      (l.note ? '<p style="font-size:13px; color:var(--ink-soft); margin-bottom:14px;">'+l.note+'</p>' : '')+
+      '<div class="participant-list">'+ l.participants.map(function(p){
+        return '<div class="p-pill"><span class="av-sm" style="background:'+avColor(p.name)+'; margin-left:0;">'+initials(p.name)+'</span>'+p.name+'</div>';
+      }).join('') + (l.waitlist.length ? '<div class="p-pill" style="color:var(--ink-soft);">+'+l.waitlist.length+' 候补</div>' : '') +'</div>'+
+      actionHtml;
+  }
+
+  /* ---------------- profile modal ---------------- */
+  function profileHtml(){
+    var completed = state.footprints.length;
+    return '<button class="modal-close" onclick="App.closeModal()">✕</button>'+
+      '<div style="display:flex; align-items:center; gap:12px; margin-bottom:6px;">'+
+        '<div class="avatar" style="width:46px;height:46px;font-size:16px;background:var(--coral);">我</div>'+
+        '<div><h3>我</h3><div class="sub">Lv.'+state.lv+' 探索者</div></div>'+
+      '</div>'+
+      '<div class="detail-grid" style="margin-top:16px;">'+
+        '<div class="detail-field"><label>身份认证</label><div style="color:var(--trail);">同校认证 ✓</div></div>'+
+        '<div class="detail-field"><label>已成团次数</label><div>'+completed+' 次</div></div>'+
+        '<div class="detail-field"><label>好评率</label><div>100%</div></div>'+
+        '<div class="detail-field"><label>信用状态</label><div style="color:var(--trail);">良好</div></div>'+
+      '</div>'+
+      '<p class="f-hint" style="margin-top:14px;">互评、身份认证与举报机制共同构成信任分——这是组队型产品的安全底线。</p>';
+  }
+
+  /* ---------------- App (public actions) ---------------- */
+  window.App = {
+    switchTab: function(t){ ui.tab = t; render(); window.scrollTo({top:0,behavior:'smooth'}); },
+    setCat: function(c){ ui.cat = c; render(); },
+    render: render,
+    closeModal: closeModal,
+
+    openListing: function(id){
+      var l = state.listings.find(function(x){return x.id===id;});
+      if(!l) return;
+      openModal(listingDetailHtml(l));
+    },
+
+    openProfile: function(){ openModal(profileHtml()); },
+
+    apply: function(id){
+      var l = state.listings.find(function(x){return x.id===id;});
+      var note = (document.getElementById('applyNote')||{}).value || "";
+      if(l.reviewMode === 'auto'){
+        l.participants.push({name:"我"});
+        toast('已加入「'+l.title+'」！');
+      } else {
+        l.pending.push({name:"我", note: note || "希望能一起参加～"});
+        toast('申请已提交，等待发起人审核');
+      }
+      closeModal();
+      persistAndRender();
+    },
+
+    joinWaitlist: function(id){
+      var l = state.listings.find(function(x){return x.id===id;});
+      l.waitlist.push({name:"我", note:"候补报名"});
+      toast('已加入候补队列，有人退出会第一时间通知你');
+      closeModal();
+      persistAndRender();
+    },
+
+    approve: function(id, idx){
+      var l = state.listings.find(function(x){return x.id===id;});
+      var p = l.pending.splice(idx,1)[0];
+      l.participants.push({name:p.name});
+      toast('已通过 '+p.name+' 的申请');
+      persistAndRender();
+    },
+    reject: function(id, idx){
+      var l = state.listings.find(function(x){return x.id===id;});
+      var p = l.pending.splice(idx,1)[0];
+      toast('已婉拒 '+p.name+' 的申请');
+      persistAndRender();
+    },
+
+    toggleMine: function(id){
+      ui.openMine[id] = !ui.openMine[id];
+      render();
+    },
+
+    addExpense: function(id){
+      var item = document.getElementById('exp-item-'+id).value.trim();
+      var amt = Number(document.getElementById('exp-amt-'+id).value);
+      var payer = document.getElementById('exp-payer-'+id).value;
+      if(!item || !amt){ toast('填写项目和金额后再记账'); return; }
+      var l = state.listings.find(function(x){return x.id===id;});
+      l.expenses.push({item:item, amount:amt, payer:payer});
+      toast('已记一笔：'+item+' ¥'+amt);
+      ui.openMine[id] = true;
+      persistAndRender();
+    },
+    togglePaid: function(id, name){
+      var l = state.listings.find(function(x){return x.id===id;});
+      l.paid[name] = !l.paid[name];
+      ui.openMine[id] = true;
+      persistAndRender();
+    },
+
+    completeListing: function(id){
+      var l = state.listings.find(function(x){return x.id===id;});
+      l.done = true;
+      state.footprints.push({title:l.title, caption:"完成打卡", withNames:l.participants.filter(function(p){return p.name!=="我";}).map(function(p){return p.name;})});
+      state.lv = 1 + state.footprints.length;
+      toast('已打卡「'+l.title+'」，探索等级 Lv.'+state.lv+' 🎉');
+      ui.openMine[id] = true;
+      persistAndRender();
+    },
+
+    handleCreate: function(ev){
+      ev.preventDefault();
+      var f = ev.target;
+      var fd = new FormData(f);
+      var minCap = Number(fd.get('minCap')), maxCap = Number(fd.get('maxCap'));
+      var bMin = Number(fd.get('budgetMin')), bMax = Number(fd.get('budgetMax'));
+      if(maxCap < minCap){ toast('人数上限不能小于最少成团人数'); return false; }
+      if(bMax < bMin){ toast('预算上限不能小于预算下限'); return false; }
+      var l = {
+        id: uid(), creator:"我", title: fd.get('title'), category: fd.get('category'),
+        time: fd.get('time'), meet: fd.get('meet'), minCap:minCap, maxCap:maxCap,
+        budgetMin:bMin, budgetMax:bMax, reviewMode: fd.get('reviewMode'),
+        weather:"天气待更新", distance:0, note: fd.get('note') || "",
+        participants:[{name:"我", role:"creator"}], pending:[], waitlist:[], expenses:[], paid:{}, done:false
+      };
+      state.listings.unshift(l);
+      f.reset();
+      document.querySelectorAll('.review-opt').forEach(function(o){o.classList.toggle('selected', o.dataset.val==='auto');});
+      toast('拼场卡已生成，快去邀请同行的人吧');
+      ui.tab = 'mine';
+      ui.openMine[l.id] = true;
+      persistAndRender();
+      return false;
+    }
+  };
+
+  // review toggle UI
+  document.addEventListener('click', function(e){
+    var opt = e.target.closest('.review-opt');
+    if(opt){
+      document.querySelectorAll('.review-opt').forEach(function(o){o.classList.remove('selected');});
+      opt.classList.add('selected');
+      opt.querySelector('input').checked = true;
+    }
   });
+
+  render();
 })();
 </script>
